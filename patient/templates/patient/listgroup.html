@@ -1,0 +1,16 @@
+<div class="pagination">
+    <span class="step-links text-right">
+        {% if education_list.has_previous %}
+            <a href="?page={{ education_list.previous_page_number }}">previous</a>
+        {% endif %}
+        <div>
+        <span class="current text-center">
+            <p>Page {{ education_list.number }} of {{ education_list.paginator.num_pages }}.</p>
+        </span>
+      </div>
+
+        {% if education_list.has_next %}
+            <a href="?page={{ education_list.next_page_number }}"> <strong>Next module </strong></a>
+        {% endif %}
+    </span>
+</div>

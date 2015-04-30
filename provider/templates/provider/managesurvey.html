@@ -1,0 +1,89 @@
+{% extends 'provider/layout.html' %}
+
+
+{% block custombody_content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Existing Surveys</h1>
+  </div>
+  <!-- <p>Please call Care Pigeon to add a new survey</p> -->
+
+  <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Library...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+  </div>
+  <br>  
+  <div class="row">
+    <div class="col-lg-10">
+      <ul class="list-group">
+      {% for item in survey_list %}
+        <li href="#" class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6">
+              <h4>{{ item.name }}</h4>
+              <p>{{ item.desc }}</p>
+
+            </div>
+              <div class="col-lg-6" align="right">
+                <br>
+                <button class="btn btn-primary" type="submit">View</button>
+                <button class="btn btn-primary" type="submit">Delete</button>
+                <div class="btn-group">
+                    <button type="button" class="btn">Survey Frequency: Weekly</button>
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">Daily</a></li>
+                      <li><a href="#">Weekly</a></li>
+                      <li><a href="#">Monthly</a></li>
+                    </ul>
+                </div>
+              </div>
+
+
+            </div>
+
+<!-- 
+            <span class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Action <span class="caret"></span>
+
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a>
+                </li>
+                <li><a href="#">Another action</a>
+                </li>
+                <li><a href="#">Something else here</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a>
+                </li>
+            </ul>
+            </span> -->
+             
+
+          
+          
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+   
+
+
+</div>
+  
+
+
+{% endblock custombody_content %}

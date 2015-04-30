@@ -1,0 +1,65 @@
+
+{% extends 'patient/layout.html' %}
+
+{% block customScripts %}
+
+
+{% endblock customScripts %}
+
+{% block custombody_content %}
+
+<div class="container">
+<div class="page-header">
+  <h1>Welcome {{ user.username }}</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <div class="list-group">
+{% for provider in provider_list %}
+
+      {% if provider.is_flagged %}
+      <a href="{% url 'patient:detail' %}" class="list-group-item list-group-item-warning">
+      {% else %}
+      <a href="{% url 'patient:detail' %}" class="list-group-item">
+      {% endif %}  
+
+          <div class="row">
+            <div class="col-lg-2">
+              <img style="width: 100px; height: 100px"src="{{ provider.imgsrc }}">
+            </div>
+            <div class="col-lg-8">
+              
+                <h4 >{{provider.name}}</h4>
+              <p class="list-group-item-text">Title: {{provider.title}}</p>
+              <p class="list-group-item-text">Practice: {{provider.practice}}</p>
+              <!-- <p class="list-group-item-text">Flag?: {{provider.has_warning}}</p> -->
+            </div>
+
+            {% if provider.is_flagged %}
+            <div class="col-lg-2" align="center">
+              <span class="glyphicon glyphicon-alert btn-lg" style="font-size: 50px;" aria-hidden="true"></span>
+            </div>
+            {% endif %}
+              
+          
+          </div>
+        
+    
+      </a>
+
+
+
+
+{% empty %}
+    <a>Sorry, no physician has registered with you yet.</a>
+{% endfor %}
+    </div>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+
+
+</div>
+{% endblock custombody_content %}

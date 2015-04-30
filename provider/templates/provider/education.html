@@ -1,0 +1,118 @@
+{% extends 'provider/layout.html' %}
+
+
+{% block custombody_content %}
+<div class="container">
+
+<div class="page-header">
+  <h1>Manage Clinical Library</h1>
+</div>
+  
+
+  <form method="POST" action="{% url 'provider:education' %}">
+  {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="well">
+         
+
+        
+      
+      <h5>Upload documents or videos for your patients</h5>
+
+      <!--     <input type="text" class="form-control" placeholder="Enter a Title for file">
+          <input type="text" class="form-control" placeholder="Click here to upload file...">
+          <input type="text" class="form-control" placeholder="Enter a description for your file"> -->
+      
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+              
+                <label for="title">Title:</label>
+                {{ clinlib_form.title }}
+                <!-- <input type="text" class="form-control" placeholder="Enter a title..." id="title" name="title"> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="desc">Description:</label>
+                <input type="text" class="form-control" placeholder="Enter a short description (optional)..." id="desc"name="desc">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="uri">Link:</label>
+                <input type="text" class="form-control" placeholder="Paste a link to your document/Youtube video..." id="uri" name="uri">
+              </div>
+            </div>
+          </div>
+
+          
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Add</button>
+          {{ message }}
+
+          {% if clinlib_form.non_field_errors %}
+            <ul>
+              {% for error in clinlib_form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        
+      
+        </div>
+      </div><!-- /.col-lg-6 -->
+    </div>
+  </form>
+
+  <div class="page-header">
+    <h3>Existing Library</h3>
+  </div>
+
+  <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Library...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+  </div>
+  <br>  
+  <div class="row">
+    <div class="col-lg-6">
+      <ul class="list-group">
+      {% for item in education_list %}
+        <li href="#" class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6">
+              <h4>{{ item.name }}</h4>
+              <p>{{ item.desc }}</p>
+            </div>
+            <div class="col-lg-6" align="right">
+              <br>
+              <button class="btn btn-primary" type="submit">View</button>
+              <button class="btn btn-primary" type="submit">Delete</button>
+            </div>
+          </div>
+          
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>
+  
+
+
+{% endblock custombody_content %}

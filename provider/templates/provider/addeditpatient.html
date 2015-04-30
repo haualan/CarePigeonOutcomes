@@ -1,0 +1,181 @@
+{% extends 'provider/layout.html' %}
+
+
+{% block customScripts %}
+{% endblock customScripts %}
+
+
+{% block custombody_content %}
+<div class="container">
+<br>
+  <div class="row">
+    <div class="col-lg-4">
+      <form method="post" href="{% url 'provider:managePatient' %}">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+      </form>
+      
+    </div>
+    
+  </div>
+
+  <div class="page-header">
+    <h1>Edit Patient</h1>
+  </div>
+
+  
+
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="form-group">
+        <label for="fname">Firstname:</label>
+        <input type="text" class="form-control" id="fname">
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="mname">Middlename:</label>
+        <input type="text" class="form-control" id="mname">
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="form-group">
+        <label for="lname">Lastname:</label>
+        <input type="text" class="form-control" id="lname">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="fname">Patient ID:</label>
+        <input type="text" class="form-control" id="pat_ic">
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="fname">Date of Birth:</label>
+        <input type="date" class="form-control" id="dob">
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="form-group">
+        <label for="mname">Date of Surgery:</label>
+        <input type="date" class="form-control" id="dos">
+      </div>
+    </div>
+    
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-6">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <strong>Surveys Assigned</strong>
+        </li>
+        {% for survey in patient_assigned_surveys %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6">
+              <strong>{{ survey.name }}</strong>
+              <p>{{ survey.desc }}</p>  
+            </div>
+            <div class="col-lg-6" align="right">
+              <button class="btn btn-default" type="button">Delete</button>
+            </div>
+            
+          </div>
+          
+          
+        </li>
+        {% endfor %}
+        <li class="list-group-item">
+          <ul class="list-group">
+            <li class="list-group-item active">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Surveys...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Search</button>
+                </span>
+              </div><!-- /input-group -->
+
+            </li>
+          
+            {% for item in survey_list %}
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-6">
+                  <strong>{{ item.name }}</strong>
+                </div>
+                <div class="col-lg-6" align="right">
+                  <button class="btn btn-default" type="button">Add</button>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          <strong>Content Assigned</strong>
+        </li>
+        {% for content in patient_assigned_content %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6">
+              <strong>{{ content.name }}</strong>
+              <p>{{ content.desc }}</p>
+            </div>
+            <div class="col-lg-6" align="right">
+              <button class="btn btn-default" type="button">Delete</button>
+            </div>
+            
+          </div>
+
+          
+        </li>
+        {% endfor %}
+        <li class="list-group-item">
+          <ul class="list-group">
+            <li class="list-group-item active">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Surveys...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Search</button>
+                </span>
+              </div><!-- /input-group -->
+
+            </li>
+          
+            {% for item in education_list %}
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-6">
+                  <strong>{{ item.name }}</strong>
+                </div>
+                <div class="col-lg-6" align="right">
+                  <button class="btn btn-default" type="button">Add</button>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </div>
+    </div>
+ <!--  </div> -->
+
+  <div class="row">
+    <div class="col-lg-4">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+    </div>
+    
+  </div>
+
+</div>
+{% endblock custombody_content %}

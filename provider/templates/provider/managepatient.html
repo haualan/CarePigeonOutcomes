@@ -1,0 +1,72 @@
+{% extends 'provider/layout.html' %}
+
+
+{% block custombody_content %}
+<div class="container">
+
+<div class="page-header">
+  <h1>Manage patients</h1>
+</div>
+      <div class='row'>
+      <div class="col-lg-6">
+      <form method="post" action="{% url 'provider:addEditPatient' 'edit' '13' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Add new patient</button>
+      </form>
+      
+      </div>
+      </div>
+
+    <!-- /.col-lg-6 -->
+    <div class="page-header">
+  <div class="row">
+  <div class="col-lg-6">
+    <h3>Manage existing patients</h3>
+  </div>
+  </div>
+  </div>
+
+  <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Library...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+  </div>
+  <br>  
+  <div class="row">
+    <div class="col-lg-6">
+      <ul class="list-group">
+      {% for patient in patient_list %}
+        <li href="#" class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6">
+                <h4>{{ patient.name }}</h4>
+            </div>
+            <div class="col-lg-6" align="right">
+              <form method="post" action="{% url 'provider:addEditPatient' 'edit' patient.id %}">
+               {% csrf_token %}
+                <button class="btn btn-primary" type="submit">View</button>
+                <button class="btn btn-primary" type="sumbit">Edit</button>
+                <button class="btn btn-primary" type="submit">Delete</button>
+              </form>
+              
+            </div>
+          </div>
+          
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</div>
+  
+
+
+{% endblock custombody_content %}

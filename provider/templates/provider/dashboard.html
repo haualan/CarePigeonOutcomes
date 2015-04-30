@@ -1,0 +1,182 @@
+
+{% extends 'provider/layout.html' %}
+
+{% block customScripts %}
+
+  
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+$(function () {
+    $('#highcharts-container').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'HOOS_PS and Steps Time Series'
+        },
+        // subtitle: {
+        //     text: 'Source: WorldClimate.com'
+        // },
+        xAxis: [{
+            min: -10,
+            max: 76,
+            crosshair: true,
+            title: {
+                text: 'Days since surgery'
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            min: 0,
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'HOOS_PS',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { 
+            min: 0,
+            title: {
+                text: 'Steps',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 100,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'Steps',
+            type: 'spline',
+            yAxis: 1,
+            data: [[-8, 207], [-7, 423], [-6, 1232], [-5, 295], [-4, 467], [-3, 183], [-2, 250], [-1, 311], [0, 61], [1, 2731], [2, 264], [3, 688], [4, 1467], [15, 18], [16, 586], [17, 288], [19, 430], [20, 1942], [21, 1270], [22, 82], [23, 3527], [24, 2747], [25, 2021], [26, 2597], [27, 5443], [28, 5703], [29, 5635], [30, 6602], [31, 923], [32, 30], [33, 7100], [34, 748], [35, 3074], [36, 8248], [37, 5340], [38, 5128], [39, 8676], [40, 4760], [41, 4723], [42, 260], [43, 4979], [44, 5177], [45, 4634], [46, 210], [47, 1004], [48, 91], [49, 1038], [50, 641], [51, 960], [52, 466], [53, 3938], [54, 4784], [55, 3149], [56, 809], [57, 735], [58, 5979], [59, 132], [60, 3673], [61, 952], [62, 7158], [63, 1892], [64, 2594], [65, 9512], [66, 112], [67, 6632], [68, 1027], [69, 1561], [70, 1543], [71, 1338], [72, 5703], [73, 4498], [74, 3045], [75, 2531]],
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'HOOS_PS',
+            type: 'spline',
+            data: [[-3, 30.4], [4, 8.8], [11, 46.1], [18, 90.8], [25, 90.8], [32, 82.4], [39, 90.8], [53, 100], [60, 100], [74, 100]],
+            tooltip: {
+                valueSuffix: ''
+            }
+        }],
+        credits : false
+
+    });
+});
+    </script>
+
+
+{% endblock customScripts %}
+
+{% block custombody_content %}
+
+
+
+
+
+
+
+
+<div class="container">
+
+<div class="page-header text-center">
+  <img style="width: 100px; height: 100px"src="/static/provider/images/samtaylor.png">
+  <h1>Welcome Dr. {{ user.last_name }}</h1>
+</div>
+
+
+
+<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6">
+    <div class="list-group">
+      <div class="list-group-item active">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for Patient...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+          </span>
+        </div><!-- /input-group -->
+      </div>
+      {% for item in patient_list %}
+
+      <a class="list-group-item">
+       <strong>{{ item.name }}</strong>, patient id: {{ item.id }}
+      </a>
+
+      {% endfor %}
+      
+    </div>
+    
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3"></div>
+</div>
+
+
+
+<script src="/static/js/highcharts.src.js"></script>
+<script src="/static/js/modules/exporting.js"></script>
+<div id="highcharts-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+
+
+<br>
+<form method="get" action="{% url 'provider:exportPSfile' %}" >
+  <button class="btn btn-lg btn-primary" type="submit">
+    Download Data <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+  </button>
+</form>
+<br>
+
+<div>
+    <a href="https://plot.ly/~alan.wc.hau/97/" target="_blank" title="Step Count Time series " style="display: block; text-align: center;"><img src="https://plot.ly/~alan.wc.hau/97.png" alt="Step Count Time series " style="max-width: 100%;"  onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="alan.wc.hau:97" src="https://plot.ly/embed.js" async></script>
+</div>
+
+
+<form method="get" action="{% url 'provider:exportfitbitfile' %}" >
+  <button class="btn btn-lg btn-primary" type="submit">
+    Download Step Data <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+  </button>
+</form>
+
+
+<form method="get" action="{% url 'provider:exportSurveyResponseFile' %}" >
+  <button class="btn btn-lg btn-primary" type="submit">
+    Download Survey Data <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+  </button>
+</form>
+
+
+
+<br>
+
+</div>
+{% endblock custombody_content %}

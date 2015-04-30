@@ -1,0 +1,40 @@
+{% extends 'patient/layout.html' %}
+
+{% block customScripts %}
+
+
+{% endblock customScripts %}
+
+{% block custombody_content %}
+
+<form action="{% url 'patient:survey' survey_token %}" method="post">
+{% csrf_token %}
+  <div class="container">
+    <h1>{{ survey_structure.name }}</h1>
+    <ul class="list-group">
+      {% for question in survey_structure.questions %}
+        <li class="list-group-item">
+          <h4>{{ question.question_title }}</h4>
+          <p>{{ question.question_helper }}</p>
+          {% if question.question_type == 'multiple-choice' %}
+            {% for item in question.question_choices %}
+              <div class="radio">
+                <label><input type="radio" name="{{ question.question_title }}" value="{{ item.choice }}">{{ item.choice }}</label>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+        </li>
+
+      {% endfor %}
+    </ul>
+
+
+
+    
+
+  <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+
+  </div>
+</form>
+{% endblock custombody_content %}
